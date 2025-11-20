@@ -246,57 +246,54 @@ src="https://www.facebook.com/tr?id=837549335678900&ev=PageView&noscript=1"
 
 
 	<!-- Embed do site fornecido pelo utilizador (adicionado em 2025-11-20) -->
-	<div class="external-embed" style="max-width:100%; margin:16px auto; padding:0 16px;">
-		<div style="max-width:980px; margin:0 auto;">
-			<iframe id="kintu-embed" src="https://www.kintu.org/product/0e5bfcbc-9090-441a-bcbc-fb7397fd812b" title="Kintu Product" width="100%" height="1200" scrolling="no" style="border:0; border-radius:12px; box-shadow:0 6px 18px rgba(15,23,42,0.06); overflow:hidden; display:block;" loading="lazy"></iframe>
-			<p style="font-size:14px; color:#6b7280; text-align:center; margin-top:8px;">
-				Se a página não carregar aqui (alguns sites bloqueiam iframe), abra em nova aba: 
-				<a href="https://www.kintu.org/product/0e5bfcbc-9090-441a-bcbc-fb7397fd812b" target="_blank" rel="noopener noreferrer">Abrir produto no Kintu</a>
-			</p>
-			<script>
-				(function(){
-					// Tenta ajustar a altura do iframe automaticamente quando possível.
-					var iframe = document.getElementById('kintu-embed');
+	<div class="external-embed" style="width:100%; margin:16px 0; padding:0;">
+		<iframe id="kintu-embed" src="https://www.kintu.org/product/0e5bfcbc-9090-441a-bcbc-fb7397fd812b" title="Kintu Product" width="100%" height="1200" scrolling="no" style="width:100%; max-width:none; border:0; border-radius:12px; box-shadow:0 6px 18px rgba(15,23,42,0.06); overflow:hidden; display:block;" loading="lazy"></iframe>
+		<p style="font-size:14px; color:#6b7280; text-align:center; margin-top:8px;">
+			Se a página não carregar aqui (alguns sites bloqueiam iframe), abra em nova aba: 
+			<a href="https://www.kintu.org/product/0e5bfcbc-9090-441a-bcbc-fb7397fd812b" target="_blank" rel="noopener noreferrer">Abrir produto no Kintu</a>
+		</p>
+		<script>
+			(function(){
+				// Tenta ajustar a altura do iframe automaticamente quando possível.
+				var iframe = document.getElementById('kintu-embed');
 
-					function trySameOriginResize(){
-						try{
-							var doc = iframe.contentWindow.document;
-							var h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
-							if(h && h > 0){ iframe.style.height = h + 'px'; }
-						}catch(e){
-							// cross-origin: não é possível aceder ao conteúdo
-						}
+				function trySameOriginResize(){
+					try{
+						var doc = iframe.contentWindow.document;
+						var h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+						if(h && h > 0){ iframe.style.height = h + 'px'; }
+					}catch(e){
+						// cross-origin: não é possível aceder ao conteúdo
 					}
+				}
 
-					// Listener para mensagens postMessage (caso o site dentro do iframe envie a sua altura)
-					window.addEventListener('message', function(e){
-						try{
-							var data = e.data;
-							if(typeof data === 'object' && data !== null && data.kintuHeight){
-								var h = parseInt(data.kintuHeight,10);
-								if(!isNaN(h) && h>100) iframe.style.height = h + 'px';
-							}
-							// aceitar também mensagens simples com número
-							if(typeof data === 'string' && /^[0-9]+$/.test(data)){
-								iframe.style.height = parseInt(data,10) + 'px';
-							}
-						}catch(err){ /* ignore */ }
-					}, false);
+				// Listener para mensagens postMessage (caso o site dentro do iframe envie a sua altura)
+				window.addEventListener('message', function(e){
+					try{
+						var data = e.data;
+						if(typeof data === 'object' && data !== null && data.kintuHeight){
+							var h = parseInt(data.kintuHeight,10);
+							if(!isNaN(h) && h>100) iframe.style.height = h + 'px';
+						}
+						// aceitar também mensagens simples com número
+						if(typeof data === 'string' && /^[0-9]+$/.test(data)){
+							iframe.style.height = parseInt(data,10) + 'px';
+						}
+					}catch(err){ /* ignore */ }
+				}, false);
 
-					// Fallbacks: tentar resize same-origin agora e no load; atualizar ao redimensionar a janela
-					iframe.addEventListener ? iframe.addEventListener('load', trySameOriginResize) : iframe.onload = trySameOriginResize;
-					window.addEventListener('resize', function(){
-						// ao redimensionar, garantir pelo menos 100vh
-						try{ iframe.style.minHeight = window.innerHeight + 'px'; }catch(e){}
-					});
-
-					// Definir min-height para ocupar a viewport inicialmente
+				// Fallbacks: tentar resize same-origin agora e no load; atualizar ao redimensionar a janela
+				iframe.addEventListener ? iframe.addEventListener('load', trySameOriginResize) : iframe.onload = trySameOriginResize;
+				window.addEventListener('resize', function(){
 					try{ iframe.style.minHeight = window.innerHeight + 'px'; }catch(e){}
+				});
 
-					// Se o iframe for cross-origin e não puder ser redimensionado, o valor inicial (1200px) evitará barra interna em grande parte dos casos.
-				})();
-			</script>
-		</div>
+				// Definir min-height para ocupar a viewport inicialmente
+				try{ iframe.style.minHeight = window.innerHeight + 'px'; }catch(e){}
+
+				// Se o iframe for cross-origin e não puder ser redimensionado, o valor inicial (1200px) evitará barra interna em grande parte dos casos.
+			})();
+		</script>
 	</div>
 
 
